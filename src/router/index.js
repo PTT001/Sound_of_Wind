@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import AppVue from '../App.vue';
+import HomeVue from '../view/Home.vue';
+import Record from '../view/Record.vue';
 
 export const constantRoutes = [
   // 404 page must be placed at the end !!!
@@ -10,9 +11,13 @@ export const constantRoutes = [
 
   {
     path: '/Home',
-    component: AppVue,
+    component: HomeVue,
   },
 
+  {
+    path: '/record',
+    component: Record,
+  },
   { path: '/:catchAll(.*)', redirect: '/', hidden: true },
 ];
 

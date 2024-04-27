@@ -1,10 +1,11 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue';
+import NavBar from './components/NavBar.vue';
 </script>
 
 <template>
+  <NavBar></NavBar>
   <Suspense>
-    <HelloWorld msg="Vite + Vue" />
+    <router-view></router-view>
   </Suspense>
 </template>
 
@@ -14,8 +15,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
-  height: 100vh;
+  height: 100%;
   margin: 0;
 }
 </style>
+./view/HelloWorld.vue
