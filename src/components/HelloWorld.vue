@@ -1,7 +1,13 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { initTWE, Collapse, Ripple, Modal, Input } from 'tw-elements';
-import { RoleData, AddProfile, GetAllUser } from '../api/api';
+import {
+  RoleData,
+  AddProfile,
+  GetAllUser,
+  UpdateProfile,
+  DeleteProfile,
+} from '../api/api';
 
 onMounted(async () => {
   initTWE({ Collapse, Ripple, Modal, Input });
@@ -9,6 +15,7 @@ onMounted(async () => {
 
 const userName = ref('');
 const selectedRole = ref('');
+const deletedRole = ref('');
 
 const userlist = ref([]);
 const roledata = ref([]);
@@ -20,48 +27,147 @@ const getuserdata = await GetAllUser();
 roledata.value = getroledata.data;
 userlist.value = getuserdata.data;
 
+const avatar = () => {
+  return `https://robohash.org/${Math.random()}?set=set4`;
+};
+
 FinalProfile.value = roledata.value
-  .map(item1 => {
-    const match = userlist.value.find(item2 => item2.Role === item1.Role);
+  .map((item1) => {
+    const match = userlist.value.find((item2) => item2.Role === item1.Role);
 
     return match
       ? {
           name: match.name,
           gender: item1.gender,
+          img: avatar(),
           Role: item1.Role,
           task: item1.Task,
           skill: item1.skill,
         }
       : null;
   })
-  .filter(item => item !== null);
+  .filter((item) => item !== null);
 
-const AddPerson = () => {
-  AddProfile({ name: 'ray2', role: '刀鋒' });
+const AddPerson = async () => {
+  const existingRole = FinalProfile.value.find(
+    (item) => item.Role === selectedRole.value
+  );
+
+  if (existingRole) {
+    await UpdateProfile({ name: userName.value, Role: selectedRole.value });
+  } else {
+    if (selectedRole.value !== '' || userName.value !== '') {
+      await AddProfile({ name: userName.value, Role: selectedRole.value });
+    }
+  }
 };
 
-const submitForm = event => {
-  if (selectedRole.value === '') {
-    event.preventDefault(); // 防止默認的表單提交行為
-    alert('請選擇一個角色');
-  } else {
-    // 如果選擇了角色，則進行表單提交或其他操作
-    // ...
-  }
+const deleteProfile = async (e) => {
+  await DeleteProfile(deletedRole.value);
 };
 </script>
 
 <template>
   <div class="flex flex-col justify-center items-center min-h-screen">
+    <!-- Second navbar -->
+    <!-- Main navigation container -->
+    <nav
+      class="fixed-top relative flex w-full flex-nowrap items-center justify-between bg-[#332D2D] py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4"
+      data-twe-navbar-ref
+    >
+      <div class="flex w-full flex-wrap items-center justify-between px-3">
+        <div class="mx-2"></div>
+        <!-- Hamburger button for mobile view -->
+        <button
+          class="block border-0 bg-transparent px-2 text-neutral-300 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+          type="button"
+          data-twe-collapse-init
+          data-twe-target="#navbarSupportedContent10"
+          aria-controls="navbarSupportedContent10"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <!-- Hamburger icon -->
+          <span
+            class="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+
+        <!-- Collapsible navbar container -->
+        <div
+          class="!visible mt-2 hidden flex-grow basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto"
+          id="navbarSupportedContent10"
+          data-twe-collapse-item
+        >
+          <!-- Left links -->
+          <ul
+            class="list-style-none me-auto flex flex-col ps-0 lg:mt-1 lg:flex-row"
+            data-twe-navbar-nav-ref
+          >
+            <!-- Home link -->
+            <li class="my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2" data-twe-nav-item-ref>
+              <a
+                class="text-neutral-300 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-200 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                aria-current="page"
+                href="#"
+                data-twe-nav-link-ref
+                >首頁</a
+              >
+            </li>
+            <!-- Features link -->
+            <li class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0" data-twe-nav-item-ref>
+              <a
+                class="p-0 text-neutral-300 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-200 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                href="#"
+                data-twe-nav-link-ref
+                >戰績登記</a
+              >
+            </li>
+            <!-- Pricing link -->
+            <li class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0" data-twe-nav-item-ref>
+              <a
+                class="p-0 text-neutral-300 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-200 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                href="#"
+                data-twe-nav-link-ref
+                >戰績歷史</a
+              >
+            </li>
+            <!-- About link -->
+            <li class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0" data-twe-nav-item-ref>
+              <a
+                class="p-0 text-neutral-300 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-200 active:text-black/80 motion-reduce:transition-none lg:px-2"
+                href="#"
+                data-twe-nav-link-ref
+                >意見箱</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- accordion -->
     <div id="accordionExample" class="w-11/12">
       <div
         v-for="(item, index) in FinalProfile"
         :key="index"
-        class="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark"
+        class="rounded border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark"
       >
         <h2 class="mb-0" id="headingOne">
           <button
-            class="group relative flex w-full items-center rounded-t-lg border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 font-black"
+            class="group relative flex w-full items-center rounded-t-lg border-0 bg-secondary-300 px-2 py-1 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 font-black"
             type="button"
             data-twe-collapse-init
             data-twe-collapse-collapsed
@@ -70,6 +176,11 @@ const submitForm = event => {
             :aria-controls="`collapse${index}`"
             :style="{ color: item.gender === 1 ? 'blue' : 'red' }"
           >
+            <img
+              :src="item.img"
+              alt=""
+              class="max-w-11 max-h-11 rounded-full mr-3 p-1"
+            />
             {{ item.name }} — {{ item.Role }}
           </button>
         </h2>
@@ -81,16 +192,16 @@ const submitForm = event => {
           data-twe-parent="#accordionExample"
         >
           <div class="px-5 py-4 font-black">
-            <div class="text-emerald-500 mb-2">機密任務：{{ item.task }}</div>
-            <div v-if="item.skill?.技能一" class="mb-2">
+            <div class="text-emerald-500 mb-7">機密任務：{{ item.task }}</div>
+            <div v-if="item.skill?.技能一" class="mb-7">
               <span class="font-semibold">技能一：</span
               >{{ item.skill?.技能一 }}
             </div>
-            <div v-if="item.skill?.技能二" class="mb-2">
+            <div v-if="item.skill?.技能二" class="mb-7">
               <span class="font-semibold">技能二：</span
               >{{ item.skill?.技能二 }}
             </div>
-            <div v-if="item.skill?.技能三" class="mb-2">
+            <div v-if="item.skill?.技能三" class="mb-7">
               <span class="font-semibold">技能三：</span
               >{{ item.skill?.技能三 }}
             </div>
@@ -103,15 +214,16 @@ const submitForm = event => {
     </div>
 
     <!-- Button trigger modal -->
+
     <button
       type="button"
-      class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+      class="mt-7 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong border-animation"
       data-twe-toggle="modal"
       data-twe-target="#exampleModalFullscreen"
       data-twe-ripple-init
       data-twe-ripple-color="light"
     >
-      Launch demo modal full screen
+      登記
     </button>
 
     <!-- Modal -->
@@ -164,12 +276,10 @@ const submitForm = event => {
           </div>
 
           <!-- Modal body -->
-          <div class="relative p-4 min-[0px]:overflow-y-auto my-auto">
+          <div class="relative p-4 my-auto">
             <div
-              class="mx-auto max-w-sm rounded-lg bg-white p-6 shadow-4 dark:bg-surface-dark"
+              class="mx-auto max-w-sm mb-9 rounded-lg bg-white p-4 shadow-4 dark:bg-surface-dark"
             >
-              <h1>{{ userName }}</h1>
-              <h1>{{ selectedRole }}</h1>
               <form>
                 <!--名字-->
                 <div class="relative mb-4" data-twe-input-wrapper-init>
@@ -178,8 +288,8 @@ const submitForm = event => {
                     class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
-                    placeholder="Enter email"
                     v-model="userName"
+                    required
                   />
                   <label
                     for="exampleInputEmail1"
@@ -192,16 +302,20 @@ const submitForm = event => {
                 <div class="mb-4">
                   <div class="relative">
                     <select
+                      required
                       v-model="selectedRole"
                       id="country"
                       name="country"
                       class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                     >
-                      <option value="">選擇角色</option>
-                      <option value="cn">中國</option>
-                      <option value="us">美國</option>
-                      <option value="jp">日本</option>
-                      <option value="kr">韓國</option>
+                      <option value="" disabled selected>請選擇角色</option>
+                      <option
+                        v-for="option in roledata"
+                        :value="option.Role"
+                        :key="option.Role"
+                      >
+                        {{ option.Role }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -209,12 +323,52 @@ const submitForm = event => {
                 <div class="flex justify-center">
                   <button
                     type="submit"
-                    class="w-full inline-block rounded bg-info px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-info-accent-500 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-success-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                    class="w-full inline-block rounded bg-success-600 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-info-accent-500 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-success-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                     data-twe-ripple-init
                     data-twe-ripple-color="light"
-                    @click="submitForm"
+                    @click="AddPerson"
                   >
-                    送出
+                    新增
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div
+              class="mx-auto max-w-sm rounded-lg bg-white p-4 shadow-4 dark:bg-surface-dark"
+            >
+              <form>
+                <!--角色-->
+                <div class="mb-4">
+                  <div class="relative">
+                    <select
+                      required
+                      v-model="deletedRole"
+                      id="country"
+                      name="country"
+                      class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                      <option value="" disabled selected>請選擇角色</option>
+                      <option
+                        v-for="option in roledata"
+                        :value="option.Role"
+                        :key="option.Role"
+                      >
+                        {{ option.Role }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!--Submit button-->
+                <div class="flex justify-center">
+                  <button
+                    type="submit"
+                    class="w-full inline-block rounded bg-danger-600 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-info-accent-500 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-success-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                    data-twe-ripple-init
+                    data-twe-ripple-color="light"
+                    @click="deleteProfile"
+                  >
+                    刪除
                   </button>
                 </div>
               </form>
@@ -226,4 +380,47 @@ const submitForm = event => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+}
+
+.border-animation {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-animation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent; /* 初始透明边框 */
+  border-radius: 0.25rem; /* 按钮圆角 */
+  animation: border-animation 2s linear infinite; /* 边框动画 */
+}
+
+@keyframes border-animation {
+  0% {
+    border-color: #ff0000; /* 红色 */
+  }
+  25% {
+    border-color: #00ff00; /* 绿色 */
+  }
+  50% {
+    border-color: #0000ff; /* 蓝色 */
+  }
+  75% {
+    border-color: #ffff00; /* 黄色 */
+  }
+  100% {
+    border-color: #ff00ff; /* 紫色 */
+  }
+}
+</style>

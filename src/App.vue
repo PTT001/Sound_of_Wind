@@ -8,4 +8,14 @@ import HelloWorld from './components/HelloWorld.vue';
   </Suspense>
 </template>
 
-<style scoped></style>
+<style>
+body {
+  background-image: url('/test.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  margin: 0;
+}
+</style>
