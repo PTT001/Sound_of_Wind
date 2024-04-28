@@ -49,7 +49,8 @@ FinalProfile.value = roledata.value
   })
   .filter((item) => item !== null);
 
-const AddPerson = async () => {
+const AddPerson = async (e) => {
+  e.preventDefault();
   const existingRole = FinalProfile.value.find(
     (item) => item.Role === selectedRole.value
   );
