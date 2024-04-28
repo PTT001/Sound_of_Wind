@@ -58,3 +58,8 @@ export const DeleteProfile = async (role) => {
     import.meta.env.VITE_PROFILE_API_URL + '/' + encodedrole
   );
 };
+
+//email
+export const sendEmail = async (message) => {
+  return await axios.post('http://localhost:3000/api/email', { message });
+};
