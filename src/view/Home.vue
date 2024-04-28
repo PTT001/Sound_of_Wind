@@ -63,13 +63,22 @@ const AddPerson = async () => {
   }
 };
 
-const deleteProfile = async (e) => {
-  await DeleteProfile(deletedRole.value);
+const deleteProfile = async () => {
+  const existingRole = FinalProfile.value.find(
+    (item) => item.Role === deletedRole.value
+  );
+
+  if (existingRole) {
+    console.log(456);
+    await DeleteProfile(deletedRole.value);
+  }
 };
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center min-h-screen">
+  <div
+    class="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-slate-900 to-slate-700"
+  >
     <!-- accordion -->
     <div id="accordionExample" class="w-11/12">
       <div
@@ -79,7 +88,7 @@ const deleteProfile = async (e) => {
       >
         <h2 class="mb-0" id="headingOne">
           <button
-            class="group relative flex w-full items-center rounded-t-lg border-0 bg-secondary-300 px-2 py-1 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 font-black"
+            class="group relative flex w-full items-center rounded-t-lg border-0 bg-secondary-100 px-2 py-1 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 font-black"
             type="button"
             data-twe-collapse-init
             data-twe-collapse-collapsed
@@ -136,7 +145,7 @@ const deleteProfile = async (e) => {
 
     <button
       type="button"
-      class="mt-7 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong border-animation"
+      class="mt-7 inline-block rounded bg-info-800 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong border-animation"
       data-twe-toggle="modal"
       data-twe-target="#exampleModalFullscreen"
       data-twe-ripple-init

@@ -11,12 +11,13 @@ import NavBar from './components/NavBar.vue';
 
 <style>
 body {
-  background-image: url('/test.jpeg');
+  padding-top: 44px;
+  /* background-image: url('/test.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   height: 100%;
-  margin: 0;
+  margin: 0; */
 }
 </style>
 ./view/HelloWorld.vue

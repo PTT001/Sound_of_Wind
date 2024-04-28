@@ -29,23 +29,23 @@ import axios from 'axios';
 // };
 
 export const RoleData = async () => {
-  return await axios.get('http://localhost:3000/api/role');
+  return await axios.get(import.meta.env.VITE_ROLE_URL);
 };
 
 //create
 export const AddProfile = async (Profile) => {
   console.log(Profile);
-  return await axios.post('http://localhost:3000/api/profile', Profile);
+  return await axios.post(import.meta.env.VITE_PROFILE_API_URL, Profile);
 };
 
 //read
 export const GetAllUser = async () => {
-  return await axios.get('http://localhost:3000/api/profile');
+  return await axios.get(import.meta.env.VITE_PROFILE_API_URL);
 };
 
 //update
 export const UpdateProfile = async (profile) => {
-  return await axios.put('http://localhost:3000/api/profile', {
+  return await axios.put(import.meta.env.VITE_PROFILE_API_URL, {
     name: profile.name,
     Role: profile.Role,
   });
@@ -54,5 +54,7 @@ export const UpdateProfile = async (profile) => {
 //delete
 export const DeleteProfile = async (role) => {
   const encodedrole = encodeURIComponent(role);
-  return await axios.delete('http://localhost:3000/api/profile/' + encodedrole);
+  return await axios.delete(
+    import.meta.env.VITE_PROFILE_API_URL + '/' + encodedrole
+  );
 };

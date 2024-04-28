@@ -24,7 +24,7 @@ const GoToEmailBox = () => {
   <!-- Second navbar -->
   <!-- Main navigation container -->
   <nav
-    class="fixed-top relative flex w-full flex-nowrap items-center justify-between bg-[#332D2D] py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4"
+    class="nav fixed-top relative flex w-full flex-nowrap items-center justify-between bg-[#332D2D] py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4"
     data-twe-navbar-ref
   >
     <div class="flex w-full flex-wrap items-center justify-between px-3">
@@ -75,6 +75,7 @@ const GoToEmailBox = () => {
               aria-current="page"
               href="#"
               data-twe-nav-link-ref
+              @click.prevent="GoToHome"
               >首頁</a
             >
           </li>
@@ -84,7 +85,8 @@ const GoToEmailBox = () => {
               class="p-0 text-neutral-300 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-200 active:text-black/80 motion-reduce:transition-none lg:px-2"
               href="#"
               data-twe-nav-link-ref
-              >戰績登記</a
+              @click.prevent="GoToLoginRecord"
+              >登記戰績</a
             >
           </li>
           <!-- Pricing link -->
@@ -94,7 +96,7 @@ const GoToEmailBox = () => {
               href="#"
               data-twe-nav-link-ref
               @click.prevent="GoToRecord"
-              >戰績歷史</a
+              >歷史戰績</a
             >
           </li>
           <!-- About link -->
@@ -103,6 +105,7 @@ const GoToEmailBox = () => {
               class="p-0 text-neutral-300 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-200 active:text-black/80 motion-reduce:transition-none lg:px-2"
               href="#"
               data-twe-nav-link-ref
+              @click.prevent="GoToEmailBox"
               >意見箱</a
             >
           </li>
@@ -111,3 +114,13 @@ const GoToEmailBox = () => {
     </div>
   </nav>
 </template>
+
+<style scoped>
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+</style>
