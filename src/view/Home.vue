@@ -57,21 +57,24 @@ const AddPerson = async (e) => {
 
   if (existingRole) {
     await UpdateProfile({ name: userName.value, Role: selectedRole.value });
+    window.location.reload();
   } else {
     if (selectedRole.value !== '' || userName.value !== '') {
       await AddProfile({ name: userName.value, Role: selectedRole.value });
+      window.location.reload();
     }
   }
 };
 
-const deleteProfile = async () => {
+const deleteProfile = async (e) => {
+  e.preventDefault();
   const existingRole = FinalProfile.value.find(
     (item) => item.Role === deletedRole.value
   );
 
   if (existingRole) {
-    console.log(456);
     await DeleteProfile(deletedRole.value);
+    window.location.reload();
   }
 };
 </script>
