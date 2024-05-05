@@ -1,23 +1,12 @@
 <script setup>
-import NavBar from './components/NavBar.vue';
+import NavBar from './components/NavBar2.vue';
 </script>
 
 <template>
-  <NavBar></NavBar>
+  <NavBar />
   <Suspense>
-    <router-view></router-view>
+    <router-view> </router-view>
   </Suspense>
 </template>
 
-<style>
-body {
-  padding-top: 44px;
-  /* background-image: url('/test.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 100%;
-  margin: 0; */
-}
-</style>
-./view/HelloWorld.vue
+<style></style>

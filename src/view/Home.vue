@@ -8,7 +8,10 @@ import {
   GetAllUser,
   UpdateProfile,
   DeleteProfile,
+  CreateRecord,
 } from '../api/api';
+
+import modal from '../components/modal.vue';
 
 onMounted(async () => {
   initTWE({ Collapse, Ripple, Modal, Input });
@@ -158,6 +161,8 @@ const deleteProfile = async (e) => {
       登記
     </button>
 
+    <modal />
+
     <!-- Modal -->
     <div
       data-twe-modal-init
@@ -216,6 +221,7 @@ const deleteProfile = async (e) => {
                 <!--名字-->
                 <div class="relative mb-4" data-twe-input-wrapper-init>
                   <input
+                    placeholder="輸入你的名字"
                     type="text"
                     class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                     id="exampleInputEmail1"

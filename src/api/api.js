@@ -63,3 +63,15 @@ export const DeleteProfile = async (role) => {
 export const sendEmail = async (message) => {
   return await axios.post('http://localhost:3000/api/email', { message });
 };
+
+//delete all users
+export const DeleteAllProfile = async () => {
+  await axios.delete(import.meta.env.VITE_PROFILE_API_URL + '/deleteall');
+  window.location.reload();
+};
+
+//create Record
+export const CreateRecord = async (Record) => {
+  console.log(Record, 'o');
+  await axios.post(import.meta.env.VITE_Record_API_URL, Record);
+};

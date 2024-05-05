@@ -31,7 +31,7 @@ export const constantRoutes = [
     component: EmailBox,
   },
 
-  { path: '/:catchAll(.*)', redirect: '/', hidden: true },
+  { path: '/:catchAll(.*)', redirect: '/Home', hidden: true },
 ];
 
 const router = createRouter({
