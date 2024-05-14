@@ -33,7 +33,7 @@ export const RoleData = async () => {
 };
 
 //create
-export const AddProfile = async (Profile) => {
+export const AddProfile = async Profile => {
   console.log(Profile);
   return await axios.post(import.meta.env.VITE_PROFILE_API_URL, Profile);
 };
@@ -44,7 +44,7 @@ export const GetAllUser = async () => {
 };
 
 //update
-export const UpdateProfile = async (profile) => {
+export const UpdateProfile = async profile => {
   return await axios.put(import.meta.env.VITE_PROFILE_API_URL, {
     name: profile.name,
     Role: profile.Role,
@@ -52,7 +52,7 @@ export const UpdateProfile = async (profile) => {
 };
 
 //delete
-export const DeleteProfile = async (role) => {
+export const DeleteProfile = async role => {
   const encodedrole = encodeURIComponent(role);
   return await axios.delete(
     import.meta.env.VITE_PROFILE_API_URL + '/' + encodedrole
@@ -60,7 +60,7 @@ export const DeleteProfile = async (role) => {
 };
 
 //email
-export const sendEmail = async (message) => {
+export const sendEmail = async message => {
   return await axios.post('http://localhost:3000/api/email', { message });
 };
 
@@ -71,7 +71,11 @@ export const DeleteAllProfile = async () => {
 };
 
 //create Record
-export const CreateRecord = async (Record) => {
-  console.log(Record, 'o');
+export const CreateRecord = async Record => {
   await axios.post(import.meta.env.VITE_Record_API_URL, Record);
+};
+
+//get record
+export const GetRecord = async () => {
+  return await axios.get(import.meta.env.VITE_Record_API_URL);
 };

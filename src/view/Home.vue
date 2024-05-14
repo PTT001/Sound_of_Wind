@@ -8,7 +8,6 @@ import {
   GetAllUser,
   UpdateProfile,
   DeleteProfile,
-  CreateRecord,
 } from '../api/api';
 
 import modal from '../components/modal.vue';
@@ -36,8 +35,8 @@ const avatar = () => {
 };
 
 FinalProfile.value = roledata.value
-  .map((item1) => {
-    const match = userlist.value.find((item2) => item2.Role === item1.Role);
+  .map(item1 => {
+    const match = userlist.value.find(item2 => item2.Role === item1.Role);
 
     return match
       ? {
@@ -50,12 +49,12 @@ FinalProfile.value = roledata.value
         }
       : null;
   })
-  .filter((item) => item !== null);
+  .filter(item => item !== null);
 
-const AddPerson = async (e) => {
+const AddPerson = async e => {
   e.preventDefault();
   const existingRole = FinalProfile.value.find(
-    (item) => item.Role === selectedRole.value
+    item => item.Role === selectedRole.value
   );
 
   if (existingRole) {
@@ -69,10 +68,10 @@ const AddPerson = async (e) => {
   }
 };
 
-const deleteProfile = async (e) => {
+const deleteProfile = async e => {
   e.preventDefault();
   const existingRole = FinalProfile.value.find(
-    (item) => item.Role === deletedRole.value
+    item => item.Role === deletedRole.value
   );
 
   if (existingRole) {

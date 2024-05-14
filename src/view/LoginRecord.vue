@@ -30,7 +30,12 @@
       >
     </div>
 
-    <button class="mt-20 bg-warning-600 p-3" @click="SendRecord">送出</button>
+    <button
+      class="mt-20 bg-[#02F78E] p-3 text-white rounded-lg text-lg font-[900] border"
+      @click="SendRecord"
+    >
+      送出
+    </button>
   </div>
 </template>
 
@@ -44,7 +49,7 @@ const RedPeople = ref('');
 const BluePeople = ref('');
 const GreenPeople = ref('');
 const WinG = ref('');
-const WinGroup = (x) => {
+const WinGroup = x => {
   WinG.value = x.name;
 };
 
@@ -72,15 +77,15 @@ const Win = [
   { id: 3, name: '醬油' },
 ];
 
-const red = (value) => {
-  RedPeople.value = value.map((item) => item.name);
+const red = value => {
+  RedPeople.value = value.map(item => item.name);
   console.log(RedPeople.value);
 };
-const blue = (value) => {
-  BluePeople.value = value.map((item) => item.name);
+const blue = value => {
+  BluePeople.value = value.map(item => item.name);
 };
-const green = (value) => {
-  GreenPeople.value = value.map((item) => item.name);
+const green = value => {
+  GreenPeople.value = value.map(item => item.name);
 };
 
 const SendRecord = async () => {
