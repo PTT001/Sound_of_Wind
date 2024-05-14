@@ -31,7 +31,7 @@
     </div>
 
     <button
-      class="mt-20 bg-[#02F78E] p-3 text-white rounded-lg text-lg font-[900] border"
+      class="my-20 bg-[#02F78E] p-3 text-white rounded-lg text-lg font-[900] border"
       @click="SendRecord"
     >
       送出
