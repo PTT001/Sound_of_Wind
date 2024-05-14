@@ -28,7 +28,9 @@ const shouldShowGreenIcon = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center min-h-screen">
+  <div
+    class="flex flex-col items-center min-h-screen bg-gradient-to-br from-green-300 to-green-700"
+  >
     <div class="mb-4">
       <table class="font-noto mx-2 mt-4 shadow" v-for="item in data">
         <tbody class="bg-white divide-y divide-gray-200">
