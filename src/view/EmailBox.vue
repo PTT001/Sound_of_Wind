@@ -31,11 +31,11 @@ const SendEmail = async () => {
 
 <template>
   <div
-    class="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-blue-200 to-cyan-200"
+    class="flex flex-col min-h-screen bg-gradient-to-br from-blue-200 to-cyan-200"
   >
-    <div class="container py-24 mx-auto flex">
+    <div class="container mx-auto flex">
       <div
-        class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md"
+        class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 mt-16 flex flex-col md:ml-auto w-full md:mt-0 relative z-10 shadow-md"
       >
         <div class="relative mb-4">
           <label for="email" class="leading-7 text-sm text-gray-600"
