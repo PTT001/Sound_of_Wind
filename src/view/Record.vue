@@ -9,19 +9,19 @@ responseData.value = data;
 console.log(responseData.value);
 
 const shouldShowRedIcon = computed(() => {
-  return item => {
+  return (item) => {
     return item.Win === 'Red';
   };
 });
 
 const shouldShowBlueIcon = computed(() => {
-  return item => {
-    return item.Win === 'blue';
+  return (item) => {
+    return item.Win === 'Blue';
   };
 });
 
 const shouldShowGreenIcon = computed(() => {
-  return item => {
+  return (item) => {
     return item.Win === 'Green';
   };
 });
