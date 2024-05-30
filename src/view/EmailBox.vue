@@ -35,7 +35,7 @@ const SendEmail = async () => {
   >
     <div class="container mx-auto flex">
       <div
-        class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 mt-16 flex flex-col md:ml-auto w-full md:mt-0 relative z-10 shadow-md"
+        class="bg-white rounded-lg p-8 mt-16 flex flex-col w-full relative z-10 shadow-md"
       >
         <div class="relative mb-4">
           <label for="email" class="leading-7 text-sm text-gray-600"

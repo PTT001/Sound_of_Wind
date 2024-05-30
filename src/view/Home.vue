@@ -35,8 +35,8 @@ const avatar = () => {
 };
 
 FinalProfile.value = roledata.value
-  .map(item1 => {
-    const match = userlist.value.find(item2 => item2.Role === item1.Role);
+  .map((item1) => {
+    const match = userlist.value.find((item2) => item2.Role === item1.Role);
 
     return match
       ? {
@@ -49,12 +49,12 @@ FinalProfile.value = roledata.value
         }
       : null;
   })
-  .filter(item => item !== null);
+  .filter((item) => item !== null);
 
-const AddPerson = async e => {
+const AddPerson = async (e) => {
   e.preventDefault();
   const existingRole = FinalProfile.value.find(
-    item => item.Role === selectedRole.value
+    (item) => item.Role === selectedRole.value
   );
 
   if (existingRole) {
@@ -68,10 +68,10 @@ const AddPerson = async e => {
   }
 };
 
-const deleteProfile = async e => {
+const deleteProfile = async (e) => {
   e.preventDefault();
   const existingRole = FinalProfile.value.find(
-    item => item.Role === deletedRole.value
+    (item) => item.Role === deletedRole.value
   );
 
   if (existingRole) {
@@ -151,7 +151,7 @@ const deleteProfile = async e => {
 
     <button
       type="button"
-      class="mt-7 inline-block rounded bg-info-800 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong border-animation"
+      class="mt-7 inline-block rounded bg-info-800 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
       data-twe-toggle="modal"
       data-twe-target="#exampleModalFullscreen"
       data-twe-ripple-init
@@ -320,39 +320,39 @@ const deleteProfile = async e => {
   right: 0;
   z-index: 1030;
 }
-
+/* 
 .border-animation {
   position: relative;
   overflow: hidden;
-}
+} */
 
-.border-animation::before {
+/* .border-animation::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid transparent; /* 初始透明边框 */
-  border-radius: 0.25rem; /* 按钮圆角 */
-  animation: border-animation 2s linear infinite; /* 边框动画 */
-}
+  border: 2px solid transparent; 
+  border-radius: 0.25rem; 
+  animation: border-animation 2s linear infinite; 
+} */
 
-@keyframes border-animation {
+/* @keyframes border-animation {
   0% {
-    border-color: #ff0000; /* 红色 */
+    border-color: #ff0000;
   }
   25% {
-    border-color: #00ff00; /* 绿色 */
+    border-color: #00ff00;
   }
   50% {
-    border-color: #0000ff; /* 蓝色 */
+    border-color: #0000ff;
   }
   75% {
-    border-color: #ffff00; /* 黄色 */
+    border-color: #ffff00;
   }
   100% {
-    border-color: #ff00ff; /* 紫色 */
+    border-color: #ff00ff;
   }
-}
+} */
 </style>
