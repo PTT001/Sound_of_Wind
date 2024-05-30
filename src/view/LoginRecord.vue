@@ -68,7 +68,8 @@ const people = [
   { id: 12, name: '得育' },
   { id: 13, name: '朱' },
   { id: 14, name: '柏宇' },
-  { id: 15, name: 'Olivia' },
+  { id: 15, name: '小O' },
+  { id: 16, name: '小陶' },
 ];
 
 const Win = [
