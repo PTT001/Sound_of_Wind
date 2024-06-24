@@ -69,6 +69,6 @@ const navigation = [
   { name: '首頁', href: '#/Home', current: false },
   { name: '戰績輸入', href: '#/LoginRecord', current: false },
   { name: '歷史戰績', href: '#/Record', current: false },
-  { name: '意見箱', href: '#/Emailbox', current: false },
+  { name: '留言板', href: '#/msgboard', current: false },
 ];
 </script>
