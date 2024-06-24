@@ -18,7 +18,7 @@
           name="comment"
           id=""
           placeholder="請輸入你的留言"
-          class="bg-gray-50 p-2 rounded"
+          class="bg-gray-50 p-2 rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
           v-model="userinput"
         ></textarea>
         <fieldset class="py-4">
