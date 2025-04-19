@@ -49,7 +49,7 @@ const RedPeople = ref('');
 const BluePeople = ref('');
 const GreenPeople = ref('');
 const WinG = ref('');
-const WinGroup = (x) => {
+const WinGroup = x => {
   WinG.value = x.name;
 };
 
@@ -69,6 +69,7 @@ const people = [
   { id: 13, name: '朱' },
   { id: 14, name: '柏宇' },
   { id: 15, name: 'Olivia' },
+  { id: 16, name: '小陶' },
 ];
 
 const Win = [
@@ -77,15 +78,15 @@ const Win = [
   { id: 3, name: 'Green' },
 ];
 
-const red = (value) => {
-  RedPeople.value = value.map((item) => item.name);
+const red = value => {
+  RedPeople.value = value.map(item => item.name);
   console.log(RedPeople.value);
 };
-const blue = (value) => {
-  BluePeople.value = value.map((item) => item.name);
+const blue = value => {
+  BluePeople.value = value.map(item => item.name);
 };
-const green = (value) => {
-  GreenPeople.value = value.map((item) => item.name);
+const green = value => {
+  GreenPeople.value = value.map(item => item.name);
 };
 
 const SendRecord = async () => {

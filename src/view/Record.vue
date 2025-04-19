@@ -9,31 +9,29 @@ responseData.value = data;
 console.log(responseData.value);
 
 const shouldShowRedIcon = computed(() => {
-  return (item) => {
+  return item => {
     return item.Win === 'Red';
   };
 });
 
 const shouldShowBlueIcon = computed(() => {
-  return (item) => {
+  return item => {
     return item.Win === 'Blue';
   };
 });
 
 const shouldShowGreenIcon = computed(() => {
-  return (item) => {
+  return item => {
     return item.Win === 'Green';
   };
 });
 </script>
 
 <template>
-  <div
-    class="flex flex-col items-center min-h-screen bg-gradient-to-br from-green-300 to-green-700"
-  >
+  <div class="flex flex-col items-center min-h-screen">
     <div class="mb-4">
       <table class="font-noto mx-2 mt-4 shadow" v-for="item in data">
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody class="bg-yellow-100 divide-y divide-gray-200 0">
           <tr>
             <td class="py-1 border border-gray-400 px-4"></td>
             <td class="w-11/12 border border-gray-400 px-4">

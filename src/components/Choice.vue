@@ -62,7 +62,6 @@ import {
 } from '@headlessui/vue';
 import { CheckIcon } from '@heroicons/vue/20/solid';
 
-import { defineEmits } from 'vue';
 const emit = defineEmits(['child-click']);
 
 const test = () => {

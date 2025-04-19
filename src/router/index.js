@@ -3,6 +3,7 @@ import HomeVue from '../view/Home.vue';
 import Record from '../view/Record.vue';
 import LoginRecord from '../view/LoginRecord.vue';
 import EmailBox from '../view/EmailBox.vue';
+import Msgboard from '../view/msgboard.vue';
 
 export const constantRoutes = [
   // 404 page must be placed at the end !!!
@@ -29,6 +30,11 @@ export const constantRoutes = [
   {
     path: '/EmailBox',
     component: EmailBox,
+  },
+
+  {
+    path: '/msgboard',
+    component: Msgboard,
   },
 
   { path: '/:catchAll(.*)', redirect: '/Home', hidden: true },
