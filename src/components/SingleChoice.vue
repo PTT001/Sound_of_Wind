@@ -3,7 +3,7 @@
     <Listbox v-model="selectedGroup">
       <div class="relative mt-1">
         <ListboxButton
-          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left text-gray-900 border border-gray-300 shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-400 sm:text-sm"
         >
           <span class="block truncate">選擇勝利陣營</span>
         </ListboxButton>
@@ -14,7 +14,7 @@
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-10"
+            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base text-gray-900 shadow-lg ring-1 ring-black/10 focus:outline-none hover:bg-gray-100 sm:text-sm z-20"
             @click="winG"
           >
             <ListboxOption

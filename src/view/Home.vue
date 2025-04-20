@@ -83,18 +83,18 @@ const deleteProfile = async (e) => {
 
 <template>
   <div
-    class="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-slate-900 to-slate-700"
+    class="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-white"
   >
     <!-- accordion -->
     <div id="accordionExample" class="w-11/12">
       <div
         v-for="(item, index) in FinalProfile"
         :key="index"
-        class="rounded border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark"
+        class="rounded border bg-white dark:border-neutral-600 dark:bg-gray-800"
       >
         <h2 class="mb-0" id="headingOne">
           <button
-            class="group relative flex w-full items-center rounded-t-lg border-0 bg-secondary-100 px-2 py-1 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 font-black"
+            class="group relative flex w-full items-center rounded-t-lg border-0 bg-white px-2 py-1 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:bg-blue-200 focus:bg-blue-200 focus:z-[3] focus:outline-none dark:bg-gray-800 dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-blue-50 [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-gray-800 dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 font-black"
             type="button"
             data-twe-collapse-init
             data-twe-collapse-collapsed
@@ -320,39 +320,4 @@ const deleteProfile = async (e) => {
   right: 0;
   z-index: 1030;
 }
-/* 
-.border-animation {
-  position: relative;
-  overflow: hidden;
-} */
-
-/* .border-animation::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 2px solid transparent; 
-  border-radius: 0.25rem; 
-  animation: border-animation 2s linear infinite; 
-} */
-
-/* @keyframes border-animation {
-  0% {
-    border-color: #ff0000;
-  }
-  25% {
-    border-color: #00ff00;
-  }
-  50% {
-    border-color: #0000ff;
-  }
-  75% {
-    border-color: #ffff00;
-  }
-  100% {
-    border-color: #ff00ff;
-  }
-} */
 </style>

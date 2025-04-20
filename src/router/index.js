@@ -4,6 +4,8 @@ import Record from '../view/Record.vue';
 import LoginRecord from '../view/LoginRecord.vue';
 import EmailBox from '../view/EmailBox.vue';
 import Msgboard from '../view/msgboard.vue';
+import authPage from '../view/authPage.vue';
+import profile from '../view/Profile.vue';
 
 export const constantRoutes = [
   // 404 page must be placed at the end !!!
@@ -15,6 +17,11 @@ export const constantRoutes = [
   {
     path: '/Home',
     component: HomeVue,
+  },
+
+  {
+    path: '/authPage',
+    component: authPage,
   },
 
   {
@@ -35,6 +42,11 @@ export const constantRoutes = [
   {
     path: '/msgboard',
     component: Msgboard,
+  },
+
+  {
+    path: '/profile',
+    component: profile,
   },
 
   { path: '/:catchAll(.*)', redirect: '/Home', hidden: true },
