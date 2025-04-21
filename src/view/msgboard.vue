@@ -24,7 +24,7 @@
                       month: 'long',
                       day: 'numeric',
                       hour: '2-digit',
-                      minute: '2-digit',
+                      minute: '2-digit'
                     })
                   }}
                 </span>
@@ -84,24 +84,22 @@
 </template>
 
 <script setup>
-import { Createmessage, getAllmessage } from '../api/api';
-import { ref } from 'vue';
+import { Createmessage, getAllmessage } from '../api/api'
+import { ref } from 'vue'
 
-const username = ref('');
-const userinput = ref('');
+const username = ref('')
+const userinput = ref('')
 
 const Create_Message = async () => {
   if (username.value !== '' || userinput.value !== '') {
     await Createmessage({
       name: username.value,
-      message: userinput.value,
-    });
+      message: userinput.value
+    })
 
-    window.location.reload();
+    window.location.reload()
   }
-  console.log(1);
-};
+}
 
-const messageList = await getAllmessage();
-console.log(messageList.data);
+const messageList = await getAllmessage()
 </script>

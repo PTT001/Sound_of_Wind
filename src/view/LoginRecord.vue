@@ -80,18 +80,18 @@
 </template>
 
 <script setup>
-import choice from '../components/Choice.vue';
-import SingleChoice from '../components/SingleChoice.vue';
-import { ref } from 'vue';
-import { CreateRecord } from '../api/api';
+import choice from '../components/Choice.vue'
+import SingleChoice from '../components/SingleChoice.vue'
+import { ref } from 'vue'
+import { CreateRecord } from '../api/api'
 
-const RedPeople = ref('');
-const BluePeople = ref('');
-const GreenPeople = ref('');
-const WinG = ref('');
-const WinGroup = (x) => {
-  WinG.value = x.name;
-};
+const RedPeople = ref('')
+const BluePeople = ref('')
+const GreenPeople = ref('')
+const WinG = ref('')
+const WinGroup = x => {
+  WinG.value = x.name
+}
 
 const people = [
   { id: 1, name: 'Ray' },
@@ -109,33 +109,32 @@ const people = [
   { id: 13, name: '朱' },
   { id: 14, name: '柏宇' },
   { id: 15, name: 'Olivia' },
-  { id: 16, name: '小陶' },
-];
+  { id: 16, name: '小陶' }
+]
 
 const Win = [
   { id: 1, name: 'Red' },
   { id: 2, name: 'Blue' },
-  { id: 3, name: 'Green' },
-];
+  { id: 3, name: 'Green' }
+]
 
-const red = (value) => {
-  RedPeople.value = value.map((item) => item.name);
-  console.log(RedPeople.value);
-};
-const blue = (value) => {
-  BluePeople.value = value.map((item) => item.name);
-};
-const green = (value) => {
-  GreenPeople.value = value.map((item) => item.name);
-};
+const red = value => {
+  RedPeople.value = value.map(item => item.name)
+}
+const blue = value => {
+  BluePeople.value = value.map(item => item.name)
+}
+const green = value => {
+  GreenPeople.value = value.map(item => item.name)
+}
 
 const SendRecord = async () => {
   await CreateRecord({
     Win: WinG.value,
     Red: RedPeople.value,
     Blue: BluePeople.value,
-    Green: GreenPeople.value,
-  });
-  window.location.reload();
-};
+    Green: GreenPeople.value
+  })
+  window.location.reload()
+}
 </script>

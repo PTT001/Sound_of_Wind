@@ -1,30 +1,29 @@
 <script setup>
-import { GetRecord } from '../api/api';
-import { ref, computed } from 'vue';
+import { GetRecord } from '../api/api'
+import { ref, computed } from 'vue'
 
-const responseData = ref([]);
+const responseData = ref([])
 
-const { data } = await GetRecord();
-responseData.value = data;
-console.log(responseData.value);
+const { data } = await GetRecord()
+responseData.value = data
 
 const shouldShowRedIcon = computed(() => {
-  return (item) => {
-    return item.Win === 'Red';
-  };
-});
+  return item => {
+    return item.Win === 'Red'
+  }
+})
 
 const shouldShowBlueIcon = computed(() => {
-  return (item) => {
-    return item.Win === 'Blue';
-  };
-});
+  return item => {
+    return item.Win === 'Blue'
+  }
+})
 
 const shouldShowGreenIcon = computed(() => {
-  return (item) => {
-    return item.Win === 'Green';
-  };
-});
+  return item => {
+    return item.Win === 'Green'
+  }
+})
 </script>
 
 <template>

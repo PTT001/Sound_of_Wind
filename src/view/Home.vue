@@ -1,84 +1,94 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import { initTWE, Collapse, Ripple, Modal, Input } from 'tw-elements';
+import { onMounted, ref, computed, watch, nextTick } from 'vue'
+import { initTWE, Collapse, Ripple, Modal, Input } from 'tw-elements'
+import modal from '../components/modal.vue'
+import { AddProfile, UpdateProfile, DeleteProfile } from '../api/api'
+import { GetGamers, SignInGamers } from '../api/springApi'
+import store from '../store'
 
-import {
-  RoleData,
-  AddProfile,
-  GetAllUser,
-  UpdateProfile,
-  DeleteProfile,
-} from '../api/api';
+const useStore = store()
 
-import modal from '../components/modal.vue';
+const initAccordion = async () => {
+  initTWE({ Collapse, Ripple, Modal, Input })
+}
 
 onMounted(async () => {
-  initTWE({ Collapse, Ripple, Modal, Input });
-});
+  const userData = await GetGamers()
+  userlist.value = userData
+  console.log(userlist.value)
+  await initAccordion()
+})
 
-const userName = ref('');
-const selectedRole = ref('');
-const deletedRole = ref('');
+const userName = ref('')
+const selectedRole = ref('')
+const deletedRole = ref('')
 
-const userlist = ref([]);
-const roledata = ref([]);
-const FinalProfile = ref([]);
+const userlist = ref([])
+// 直接使用 store 的 CharacterInfo，避免靜態賦值
+const CharacterInfo = computed(() => useStore.CharacterInfo)
 
-const getroledata = await RoleData();
-const getuserdata = await GetAllUser();
+// 檢查 FinalProfile 的計算邏輯
+const FinalProfile = computed(() => {
+  return CharacterInfo.value
+    .map(item1 => {
+      const match = userlist.value.find(
+        item2 => item2.roleName === item1.roleName
+      )
+      return match
+        ? {
+            name: match.userName,
+            gender: item1.gender,
+            img: '',
+            Role: item1.roleName,
+            task: item1.Task,
+            skill: item1.skills
+          }
+        : null
+    })
+    .filter(item => item !== null)
+})
 
-roledata.value = getroledata.data;
-userlist.value = getuserdata.data;
+const AddPerson = async e => {
+  e.preventDefault()
+  if (!userName.value || !selectedRole.value) return // 防止空值提交
 
-const avatar = () => {
-  return `https://robohash.org/${Math.random()}?set=set4`;
-};
+  const Info = {
+    username: userName.value,
+    role: selectedRole.value
+  }
+  await SignInGamers(Info)
 
-FinalProfile.value = roledata.value
-  .map((item1) => {
-    const match = userlist.value.find((item2) => item2.Role === item1.Role);
+  // 假設 SignInGamers 更新了 store 或後端數據
+  // 如果 store.CharacterInfo 會更新，FinalProfile 會自動重新計算
+  // 如果需要手動刷新 userlist，重新調用 GetGamers
+  const userData = await GetGamers()
+  userlist.value = userData
+}
 
-    return match
-      ? {
-          name: match.name,
-          gender: item1.gender,
-          img: avatar(),
-          Role: item1.Role,
-          task: item1.Task,
-          skill: item1.skill,
-        }
-      : null;
-  })
-  .filter((item) => item !== null);
-
-const AddPerson = async (e) => {
-  e.preventDefault();
+const deleteProfile = async e => {
+  e.preventDefault()
   const existingRole = FinalProfile.value.find(
-    (item) => item.Role === selectedRole.value
-  );
+    item => item.Role === deletedRole.value
+  )
 
   if (existingRole) {
-    await UpdateProfile({ name: userName.value, Role: selectedRole.value });
-    window.location.reload();
-  } else {
-    if (selectedRole.value !== '' || userName.value !== '') {
-      await AddProfile({ name: userName.value, Role: selectedRole.value });
-      window.location.reload();
+    await DeleteProfile(deletedRole.value)
+    // 重新獲取 userlist 以更新數據
+    const userData = await GetGamers()
+    userlist.value = userData
+  }
+}
+
+watch(
+  () => FinalProfile.value,
+  async newVal => {
+    if (newVal.length > 0) {
+      await nextTick()
+      initAccordion()
     }
-  }
-};
-
-const deleteProfile = async (e) => {
-  e.preventDefault();
-  const existingRole = FinalProfile.value.find(
-    (item) => item.Role === deletedRole.value
-  );
-
-  if (existingRole) {
-    await DeleteProfile(deletedRole.value);
-    window.location.reload();
-  }
-};
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -103,11 +113,7 @@ const deleteProfile = async (e) => {
             :aria-controls="`collapse${index}`"
             :style="{
               color:
-                item.gender === 1
-                  ? 'blue'
-                  : item.gender === 2
-                  ? 'green'
-                  : 'red',
+                item.gender === 1 ? 'blue' : item.gender === 2 ? 'green' : 'red'
             }"
           >
             <img
@@ -242,11 +248,11 @@ const deleteProfile = async (e) => {
                     >
                       <option value="" disabled selected>請選擇角色</option>
                       <option
-                        v-for="option in roledata"
-                        :value="option.Role"
-                        :key="option.Role"
+                        v-for="option in CharacterInfo"
+                        :value="option.roleName"
+                        :key="option.roleName"
                       >
-                        {{ option.Role }}
+                        {{ option.roleName }}
                       </option>
                     </select>
                   </div>
@@ -282,11 +288,11 @@ const deleteProfile = async (e) => {
                     >
                       <option value="" disabled selected>請選擇角色</option>
                       <option
-                        v-for="option in roledata"
-                        :value="option.Role"
-                        :key="option.Role"
+                        v-for="option in CharacterInfo"
+                        :value="option.roleName"
+                        :key="option.roleName"
                       >
-                        {{ option.Role }}
+                        {{ option.roleName }}
                       </option>
                     </select>
                   </div>
