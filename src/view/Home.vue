@@ -1,94 +1,100 @@
 <script setup>
-import { onMounted, ref, computed, watch, nextTick } from 'vue'
-import { initTWE, Collapse, Ripple, Modal, Input } from 'tw-elements'
-import modal from '../components/modal.vue'
-import { AddProfile, UpdateProfile, DeleteProfile } from '../api/api'
-import { GetGamers, SignInGamers } from '../api/springApi'
-import store from '../store'
+import { onMounted, ref, computed, watch, nextTick } from 'vue';
+import { initTWE, Collapse, Ripple, Modal, Input } from 'tw-elements';
+import modal from '../components/modal.vue';
+import { AddProfile, UpdateProfile, DeleteProfile } from '../api/api';
+import { GetGamers, SignInGamers } from '../api/springApi';
+import store from '../store';
 
-const useStore = store()
-
-const initAccordion = async () => {
-  initTWE({ Collapse, Ripple, Modal, Input })
-}
+const useStore = store();
+const userlist = ref([]);
+const userName = ref('');
+const selectedRole = ref('');
+const deletedRole = ref('');
 
 onMounted(async () => {
-  const userData = await GetGamers()
-  userlist.value = userData
-  console.log(userlist.value)
-  await initAccordion()
-})
+  const userData = await GetGamers();
+  userlist.value = userData;
+  console.log(userlist.value);
+  await initAccordion();
+});
 
-const userName = ref('')
-const selectedRole = ref('')
-const deletedRole = ref('')
+const initAccordion = async () => {
+  initTWE({ Collapse, Ripple, Modal, Input });
+};
 
-const userlist = ref([])
 // 直接使用 store 的 CharacterInfo，避免靜態賦值
-const CharacterInfo = computed(() => useStore.CharacterInfo)
+const CharacterInfo = computed(() => useStore.CharacterInfo);
 
 // 檢查 FinalProfile 的計算邏輯
 const FinalProfile = computed(() => {
   return CharacterInfo.value
-    .map(item1 => {
+    .map((item1) => {
       const match = userlist.value.find(
-        item2 => item2.roleName === item1.roleName
-      )
+        (item2) => item2.roleName === item1.roleName
+      );
       return match
         ? {
             name: match.userName,
             gender: item1.gender,
-            img: '',
+            img: match.avatarUrl,
             Role: item1.roleName,
             task: item1.Task,
-            skill: item1.skills
+            skill: item1.skills,
           }
-        : null
+        : null;
     })
-    .filter(item => item !== null)
-})
+    .filter((item) => item !== null);
+});
 
-const AddPerson = async e => {
-  e.preventDefault()
-  if (!userName.value || !selectedRole.value) return // 防止空值提交
+const AddPerson = async (e) => {
+  e.preventDefault();
+  if (!userName.value || !selectedRole.value) return; // 防止空值提交
 
   const Info = {
     username: userName.value,
-    role: selectedRole.value
+    role: selectedRole.value,
+  };
+  await SignInGamers(Info);
+
+  // 關閉 modal
+  const modal = document.getElementById('exampleModalFullscreen');
+  if (modal) {
+    // 方法 1：模擬 data-twe-modal-dismiss 行為
+    const modalInstance = window.TWEModal.getInstance(modal); // Tailwind Elements 的 modal 實例
+    if (modalInstance) {
+      modalInstance.hide(); // 關閉 modal
+    } else {
+      // 方法 2：直接隱藏 modal（備用方案）
+      modal.classList.add('hidden');
+    }
   }
-  await SignInGamers(Info)
+};
 
-  // 假設 SignInGamers 更新了 store 或後端數據
-  // 如果 store.CharacterInfo 會更新，FinalProfile 會自動重新計算
-  // 如果需要手動刷新 userlist，重新調用 GetGamers
-  const userData = await GetGamers()
-  userlist.value = userData
-}
-
-const deleteProfile = async e => {
-  e.preventDefault()
+const deleteProfile = async (e) => {
+  e.preventDefault();
   const existingRole = FinalProfile.value.find(
-    item => item.Role === deletedRole.value
-  )
+    (item) => item.Role === deletedRole.value
+  );
 
   if (existingRole) {
-    await DeleteProfile(deletedRole.value)
+    await DeleteProfile(deletedRole.value);
     // 重新獲取 userlist 以更新數據
-    const userData = await GetGamers()
-    userlist.value = userData
+    const userData = await GetGamers();
+    userlist.value = userData;
   }
-}
+};
 
 watch(
   () => FinalProfile.value,
-  async newVal => {
+  async (newVal) => {
     if (newVal.length > 0) {
-      await nextTick()
-      initAccordion()
+      await nextTick();
+      initAccordion();
     }
   },
   { immediate: true }
-)
+);
 </script>
 
 <template>
@@ -113,14 +119,23 @@ watch(
             :aria-controls="`collapse${index}`"
             :style="{
               color:
-                item.gender === 1 ? 'blue' : item.gender === 2 ? 'green' : 'red'
+                item.gender === 1
+                  ? 'blue'
+                  : item.gender === 2
+                  ? 'green'
+                  : 'red',
             }"
           >
             <img
+              v-if="item.img"
               :src="item.img"
               alt=""
               class="max-w-11 max-h-11 rounded-full mr-3 p-1"
             />
+            <div
+              v-else
+              class="w-11 h-11 rounded-full mr-3 p-1 bg-gray-200"
+            ></div>
             {{ item.name }} — {{ item.Role }}
           </button>
         </h2>
