@@ -1,22 +1,23 @@
 <script setup>
 import { onMounted, ref, computed, watch, nextTick } from 'vue';
 import { initTWE, Collapse, Ripple, Modal, Input } from 'tw-elements';
-import { AddProfile, UpdateProfile, DeleteProfile } from '../api/api';
 import { GetGamers, SignInGamers, DeleteGamers } from '../api/springApi';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import modal from '../components/modal.vue';
 import store from '../store';
+import loading from '../components/loading.vue';
 
 const useStore = store();
 const userlist = ref([]);
 const selectedRole = ref('');
+const isLoading = ref(true);
 
 onMounted(async () => {
   const userData = await GetGamers();
   userlist.value = userData;
-
   await initAccordion();
+  isLoading.value = false;
 });
 
 const initAccordion = async () => {
@@ -74,6 +75,9 @@ const AddPerson = async (e) => {
 };
 
 const deleteProfile = async (username) => {
+  const confirmed = window.confirm(`確定要刪除 ${username} 嗎？`);
+  if (!confirmed) return;
+
   try {
     await DeleteGamers(username);
     toast.success('刪除成功');
@@ -101,6 +105,7 @@ watch(
   <div
     class="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-white"
   >
+    <loading v-if="isLoading" />
     <!-- accordion -->
     <div id="accordionExample" class="w-11/12">
       <div
