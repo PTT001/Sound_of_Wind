@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-white p-6"
+    class="min-h-screen flex items-start justify-center bg-gradient-to-br from-blue-100 to-white p-6"
   >
     <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
       <!-- 第一行：使用者大頭貼 -->
@@ -50,51 +50,51 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import store from '../store'
-import { uploadAvatar } from '../api/springApi'
-import { toast } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
-import router from '../router'
+import { ref } from 'vue';
+import store from '../store';
+import { uploadAvatar } from '../api/springApi';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import router from '../router';
 
-const userStore = store()
-const password = ref('') // 新密碼
+const userStore = store();
+const password = ref(''); // 新密碼
 
 const triggerFileUpload = () => {
-  const input = document.createElement('input')
-  input.type = 'file'
-  input.accept = 'image/*'
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
 
-  input.onchange = async event => {
-    const file = event.target.files[0]
+  input.onchange = async (event) => {
+    const file = event.target.files[0];
     if (file) {
-      const formData = new FormData()
-      formData.append('file', file) // 必須與後端的 @RequestParam("file") 匹配
+      const formData = new FormData();
+      formData.append('file', file); // 必須與後端的 @RequestParam("file") 匹配
 
       try {
-        const res = await uploadAvatar(formData)
-        toast.success('上傳成功')
+        const res = await uploadAvatar(formData);
+        toast.success('上傳成功');
 
         setTimeout(() => {
-          window.location.reload()
-        }, 1000)
+          window.location.reload();
+        }, 1000);
       } catch (error) {
-        toast.error(error)
+        toast.error(error);
       }
     }
-  }
+  };
 
-  input.click()
-}
+  input.click();
+};
 
 // 修改密碼的函數
 const updatePassword = () => {
   if (password.value) {
     // 這裡可以加入後端 API 調用邏輯
-    alert(`密碼已更新為: ${password.value}`)
-    password.value = '' // 清空密碼欄位
+    alert(`密碼已更新為: ${password.value}`);
+    password.value = ''; // 清空密碼欄位
   } else {
-    alert('請輸入新密碼')
+    alert('請輸入新密碼');
   }
-}
+};
 </script>

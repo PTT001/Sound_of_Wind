@@ -147,6 +147,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
 import router from '../router';
 import store from '../store';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const useStore = store();
 
@@ -164,6 +166,9 @@ const navigateTo = (path) => {
 const logout = () => {
   localStorage.removeItem('rayToken');
   useStore.profile = '';
-  router.push(`/authpage`);
+  toast.success('已登出');
+  setTimeout(() => {
+    router.push(`/authpage`);
+  }, 1000);
 };
 </script>
