@@ -34,7 +34,7 @@ export const GetGamers = async () => {
 }
 
 export const SignInGamers = async Profile => {
-  return await api.post('/SignInGamers', Profile)
+  return await api.post('/gamers', Profile)
 }
 
 export const uploadAvatar = async avatar => {
