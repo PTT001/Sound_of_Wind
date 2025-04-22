@@ -8,7 +8,7 @@
           @click="isLogin = true"
           :class="[
             'px-4 py-2 rounded-l-xl',
-            isLogin ? 'bg-blue-500 text-white' : 'bg-gray-200',
+            isLogin ? 'bg-blue-500 text-white' : 'bg-gray-200'
           ]"
         >
           登入
@@ -17,7 +17,7 @@
           @click="isLogin = false"
           :class="[
             'px-4 py-2 rounded-r-xl',
-            !isLogin ? 'bg-blue-500 text-white' : 'bg-gray-200',
+            !isLogin ? 'bg-blue-500 text-white' : 'bg-gray-200'
           ]"
         >
           註冊
@@ -75,61 +75,64 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import { Register, Login, GetProfile } from '../api/springApi';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import router from '../router';
-import store from '../store';
+import { reactive, ref } from 'vue'
+import { Register, Login, GetProfile } from '../api/springApi'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+import router from '../router'
+import store from '../store'
 
-const isLogin = ref(true);
+const isLogin = ref(true)
 
-const useStore = store();
+const useStore = store()
 
 const form = reactive({
   username: '',
   password: '',
   confirmPassword: '',
-  email: 'test@gmail.com',
-});
+  email: 'test@gmail.com'
+})
 
-const errorMsg = ref('');
+const errorMsg = ref('')
 
 const handleSubmit = async () => {
-  errorMsg.value = '';
+  errorMsg.value = ''
 
   if (!isLogin.value) {
     if (form.password !== form.confirmPassword) {
-      errorMsg.value = '密碼不一致';
-      return;
+      errorMsg.value = '密碼不一致'
+      return
     }
     // 註冊邏輯
-    await Register(form);
-    toast.success(`註冊成功：${form.username}`);
+    await Register(form)
+    toast.success(`註冊成功：${form.username}`)
   } else {
     // 登入邏輯
     try {
-      await Login(form);
-      toast.success(`登入成功：${form.username}`, {
-        autoClose: 1000,
-      });
+      const res = await Login(form)
 
-      const Profile = await GetProfile();
-      useStore.profile = Profile;
+      console.log(res)
+
+      toast.success(`登入成功：${form.username}`, {
+        autoClose: 1000
+      })
+
+      const Profile = await GetProfile()
+      useStore.profile = Profile
 
       setTimeout(() => {
-        router.replace(`/Home`);
-      }, 1000);
+        router.replace(`/Home`)
+      }, 1000)
     } catch (error) {
       toast.error(`帳號密碼錯誤`, {
-        autoClose: 1000,
-      });
+        autoClose: 1000
+      })
     }
   }
 
   // 重置表單
-  form.username = '';
-  form.password = '';
-  form.confirmPassword = '';
-};
+  form.username = ''
+  form.password = ''
+  form.confirmPassword = ''
+}
 </script>

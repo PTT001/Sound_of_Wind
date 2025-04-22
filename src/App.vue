@@ -2,13 +2,14 @@
 import NavBar from './components/NavBar2.vue'
 import store from './store'
 import { GetProfile, GetCharacterInfo } from './api/springApi'
+import { getCharacterInfo } from './api/api'
 import { onMounted } from 'vue'
 
 const useStore = store()
 
 onMounted(async () => {
   useStore.profile = await GetProfile()
-  useStore.CharacterInfo = await GetCharacterInfo()
+  useStore.CharacterInfo = await getCharacterInfo()
 })
 </script>
 

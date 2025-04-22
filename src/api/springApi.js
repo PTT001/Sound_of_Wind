@@ -9,34 +9,62 @@ export const Login = async Profile => {
     const res = await api.post('/login', Profile)
     localStorage.setItem('rayToken', res.data.token)
     return res
-  } catch (error) {}
+  } catch (error) {
+    throw error
+  }
 }
 
 export const GetProfile = async () => {
   try {
     const res = await api.get('/getProfile')
     return res.data
-  } catch (error) {}
+  } catch (error) {
+    throw error
+  }
 }
 
 export const GetCharacterInfo = async () => {
   try {
     const res = await api.get('/character')
     return res.data
-  } catch (error) {}
+  } catch (error) {
+    throw error
+  }
+}
+
+export const uploadAvatar = async avatar => {
+  try {
+    return await api.post('/upload-avatar', avatar, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  } catch (error) {
+    throw error
+  }
 }
 
 export const GetGamers = async () => {
   try {
     const res = await api.get('/gamers')
     return res.data
-  } catch (error) {}
+  } catch (error) {
+    throw error
+  }
 }
 
 export const SignInGamers = async Profile => {
-  return await api.post('/gamers', Profile)
+  try {
+    return await api.post('/gamers', Profile)
+  } catch (error) {
+    throw error
+  }
 }
 
-export const uploadAvatar = async avatar => {
-  return await api.post('/upload-avatar', avatar)
+export const DeleteGamers = async username => {
+  try {
+    return await api.delete(`/gamers/${username}`)
+  } catch (error) {
+    throw error
+  }
 }

@@ -60,3 +60,8 @@ export const Createmessage = async message => {
 export const getAllmessage = async () => {
   return await axios.get(import.meta.env.VITE_MESSAGE_API_URL)
 }
+
+export const getCharacterInfo = async () => {
+  const res = await axios.get('/CharacterInfo.json')
+  return res.data
+}

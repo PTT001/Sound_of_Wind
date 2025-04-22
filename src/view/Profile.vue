@@ -7,7 +7,7 @@
       <div class="flex justify-center mb-6 relative">
         <img
           :src="userStore.profile.avatarUrl"
-          alt="使用者大頭貼"
+          alt=""
           class="w-24 h-24 rounded-full object-cover border-2 border-blue-200 cursor-pointer"
         />
         <!-- 加號疊層 -->
@@ -53,6 +53,9 @@
 import { ref } from 'vue'
 import store from '../store'
 import { uploadAvatar } from '../api/springApi'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+import router from '../router'
 
 const userStore = store()
 const password = ref('') // 新密碼
@@ -65,8 +68,19 @@ const triggerFileUpload = () => {
   input.onchange = async event => {
     const file = event.target.files[0]
     if (file) {
-      const res = await uploadAvatar(file)
-      console.log(res)
+      const formData = new FormData()
+      formData.append('file', file) // 必須與後端的 @RequestParam("file") 匹配
+
+      try {
+        const res = await uploadAvatar(formData)
+        toast.success('上傳成功')
+
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      } catch (error) {
+        toast.error(error)
+      }
     }
   }
 

@@ -1,27 +1,27 @@
-import axios from 'axios';
-import router from '../router';
+import axios from 'axios'
+import router from '../router'
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-});
+  baseURL: import.meta.env.VITE_API_BASE_URL
+})
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('rayToken');
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('rayToken')
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`
   }
-  return config;
-});
+  return config
+})
 
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  response => response,
+  error => {
     if (error.response) {
       // Token 過期或錯誤，引導回登入頁
-      router.push('/authpage');
+      router.push('/authpage')
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-export default api;
+export default api
