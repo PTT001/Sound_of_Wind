@@ -20,22 +20,22 @@
             <ListboxOption
               v-slot="{ active, selected }"
               v-for="person in people"
-              :key="person.name"
+              :key="person.username"
               :value="person"
               as="template"
             >
               <li
                 :class="[
                   active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                  'relative cursor-default select-none py-2 pl-10 pr-4',
+                  'relative cursor-default select-none py-2 pl-10 pr-4'
                 ]"
               >
                 <span
                   :class="[
                     selected ? 'font-medium' : 'font-normal',
-                    'block truncate',
+                    'block truncate'
                   ]"
-                  >{{ person.name }}</span
+                  >{{ person.username }}</span
                 >
                 <span
                   v-if="selected"
@@ -53,29 +53,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import {
   Listbox,
   ListboxButton,
   ListboxOptions,
-  ListboxOption,
-} from '@headlessui/vue';
-import { CheckIcon } from '@heroicons/vue/20/solid';
+  ListboxOption
+} from '@headlessui/vue'
+import { CheckIcon } from '@heroicons/vue/20/solid'
 
-const emit = defineEmits(['child-click']);
+const emit = defineEmits(['child-click'])
 
 const test = () => {
-  emit('child-click', selectedPeople.value);
-};
+  emit('child-click', selectedPeople.value)
+}
 
 const props = defineProps({
   people: {
-    type: Array,
+    type: Array
   },
   Win: {
-    type: Array,
-  },
-});
+    type: Array
+  }
+})
 
-const selectedPeople = ref([]);
+const selectedPeople = ref([])
 </script>

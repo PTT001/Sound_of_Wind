@@ -1,135 +1,125 @@
-<script setup>
-import { GetRecord } from '../api/api'
-import { ref, computed } from 'vue'
-
-const responseData = ref([])
-
-const { data } = await GetRecord()
-responseData.value = data
-
-const shouldShowRedIcon = computed(() => {
-  return item => {
-    return item.Win === 'Red'
-  }
-})
-
-const shouldShowBlueIcon = computed(() => {
-  return item => {
-    return item.Win === 'Blue'
-  }
-})
-
-const shouldShowGreenIcon = computed(() => {
-  return item => {
-    return item.Win === 'Green'
-  }
-})
-</script>
-
 <template>
   <div
-    class="flex flex-col items-center min-h-screen bg-gradient-to-br from-blue-100 to-white p-6 py-8"
+    class="flex flex-col items-center min-h-screen bg-gradient-to-br from-blue-100 to-white text-white"
   >
-    <div class="w-full max-w-3xl space-y-6">
-      <div
-        v-for="item in responseData"
-        :key="item.createdAt"
-        class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+    <!-- Main Content -->
+    <main class="flex flex-col items-center w-full max-w-3xl px-4 py-8">
+      <!-- 誰贏 Section -->
+      <section
+        class="w-full rounded-xl bg-white p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
       >
-        <table class="w-full font-sans text-gray-700 table-fixed">
-          <tbody>
-            <!-- Date Row -->
-            <tr class="bg-gray-100">
-              <td class="w-12 py-3 pl-4 border-b border-gray-200"></td>
-              <td
-                class="py-3 px-4 border-b border-gray-200 text-sm font-medium text-gray-500"
-              >
-                {{ new Date(item.createdAt).toLocaleString() }}
-              </td>
-            </tr>
-            <!-- Red Row -->
-            <tr
-              class="bg-red-50 hover:bg-red-100 transition-colors duration-200"
-            >
-              <td class="w-12 py-3 pl-4 border-b border-gray-200 text-red-500">
-                <svg
-                  v-if="shouldShowRedIcon(item)"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-5 h-5"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 0 0-.584.859 6.753 6.753 0 0 0 6.138 5.6 6.73 6.73 0 0 0 2.743 1.346A6.707 6.707 0 0 1 9.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a2.25 2.25 0 0 0-2.25 2.25c0 .414.336.75.75.75h15a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-2.25-2.25h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.706 6.706 0 0 1-1.112-3.173 6.73 6.73 0 0 0 2.743-1.347 6.753 6.753 0 0 0 6.139-5.6.75.75 0 0 0-.585-.858 47.077 47.077 0 0 0-3.07-.543V2.62a.75.75 0 0 0-.658-.744 49.22 49.22 0 0 0-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 0 0-.657.744Zm0 2.629c0 1.196.312 2.32.857 3.294A5.266 5.266 0 0 1 3.16 5.337a45.6 45.6 0 0 1 2.006-.343v.256Zm13.5 0v-.256c.674.1 1.343.214 2.006.343a5.265 5.265 0 0 1-2.863 3.207 6.72 6.72 0 0 0 .857-3.294Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <span v-else></span>
-              </td>
-              <td
-                class="py-3 px-4 border-b border-gray-200 text-red-600 font-medium"
-              >
-                {{ item.Red.join(' / ') }}
-              </td>
-            </tr>
-            <!-- Blue Row -->
-            <tr
-              class="bg-blue-50 hover:bg-blue-100 transition-colors duration-200"
-            >
-              <td class="w-12 py-3 pl-4 border-b border-gray-200 text-blue-500">
-                <svg
-                  v-if="shouldShowBlueIcon(item)"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-5 h-5"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 0 0-.584.859 6.753 6.753 0 0 0 6.138 5.6 6.73 6.73 0 0 0 2.743 1.346A6.707 6.707 0 0 1 9.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a2.25 2.25 0 0 0-2.25 2.25c0 .414.336.75.75.75h15a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-2.25-2.25h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.706 6.706 0 0 1-1.112-3.173 6.73 6.73 0 0 0 2.743-1.347 6.753 6.753 0 0 0 6.139-5.6.75.75 0 0 0-.585-.858 47.077 47.077 0 0 0-3.07-.543V2.62a.75.75 0 0 0-.658-.744 49.22 49.22 0 0 0-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 0 0-.657.744Zm0 2.629c0 1.196.312 2.32.857 3.294A5.266 5.266 0 0 1 3.16 5.337a45.6 45.6 0 0 1 2.006-.343v.256Zm13.5 0v-.256c.674.1 1.343.214 2.006.343a5.265 5.265 0 0 1-2.863 3.207 6.72 6.72 0 0 0 .857-3.294Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <span v-else></span>
-              </td>
-              <td
-                class="py-3 px-4 border-b border-gray-200 text-blue-600 font-medium"
-              >
-                {{ item.Blue.join(' / ') }}
-              </td>
-            </tr>
-            <!-- Green Row -->
-            <tr
-              class="bg-green-50 hover:bg-green-100 transition-colors duration-200"
-            >
-              <td
-                class="w-12 py-3 pl-4 border-b border-gray-200 text-green-500"
-              >
-                <svg
-                  v-if="shouldShowGreenIcon(item)"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-5 h-5"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 0 0-.584.859 6.753 6.753 0 0 0 6.138 5.6 6.73 6.73 0 0 0 2.743 1.346A6.707 6.707 0 0 1 9.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a2.25 2.25 0 0 0-2.25 2.25c0 .414.336.75.75.75h15a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-2.25-2.25h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.706 6.706 0 0 1-1.112-3.173 6.73 6.73 0 0 0 2.743-1.347 6.753 6.753 0 0 0 6.139-5.6.75.75 0 0 0-.585-.858 47.077 47.077 0 0 0-3.07-.543V2.62a.75.75 0 0 0-.658-.744 49.22 49.22 0 0 0-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 0 0-.657.744Zm0 2.629c0 1.196.312 2.32.857 3.294A5.266 5.266 0 0 1 3.16 5.337a45.6 45.6 0 0 1 2.006-.343v.256Zm13.5 0v-.256c.674.1 1.343.214 2.006.343a5.265 5.265 0 0 1-2.863 3.207 6.72 6.72 0 0 0 .857-3.294Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                <span v-else></span>
-              </td>
-              <td
-                class="py-3 px-4 border-b border-gray-200 text-green-600 font-medium"
-              >
-                {{ item.Green.join(' / ') }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+        <h2 class="text-2xl font-bold text-orange-400 mb-4">誰贏</h2>
+        <SingleChoice @win-click="WinGroup" :Win="Win" />
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span
+            v-for="item in WinG"
+            class="text-black bg-orange-500/20 px-3 border-orange-300 py-1 rounded-full"
+          >
+            {{ item }}
+          </span>
+        </div>
+      </section>
+
+      <!-- 潛伏 Section -->
+      <section
+        class="w-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 mt-8"
+      >
+        <h2 class="text-2xl font-bold text-red-500 mb-4">潛伏</h2>
+        <choice @child-click="red" :people="AllUser" />
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span
+            v-for="item in RedPeople"
+            class="text-red-700 bg-red-500/20 border-red-300 px-3 py-1 rounded-full"
+          >
+            {{ item }}
+          </span>
+        </div>
+      </section>
+
+      <!-- 軍情 Section -->
+      <section
+        class="w-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 mt-8"
+      >
+        <h2 class="text-2xl font-bold text-blue-500 mb-4">軍情</h2>
+        <choice @child-click="blue" :people="AllUser" />
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span
+            v-for="item in BluePeople"
+            class="text-sm text-blue-700 bg-blue-500/20 border-blue-300 px-4 py-1 rounded-full mr-2"
+          >
+            {{ item }}
+          </span>
+        </div>
+      </section>
+
+      <!-- 醬油 Section -->
+      <section
+        class="w-full bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 mt-8"
+      >
+        <h2 class="text-2xl font-bold text-green-500 mb-4">醬油</h2>
+        <choice @child-click="green" :people="AllUser" />
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span
+            v-for="item in GreenPeople"
+            class="text-green-700 bg-green-500/20 border-green-300 px-3 py-1 rounded-full"
+          >
+            {{ item }}
+          </span>
+        </div>
+      </section>
+
+      <!-- Submit Button -->
+      <button
+        class="my-12 px-8 py-4 bg-gradient-to-r from-green-400 to-green-600 text-white text-lg font-bold rounded-xl shadow-lg hover:from-green-500 hover:to-green-700 transform hover:scale-105 transition-all duration-300"
+        @click="SendRecord"
+      >
+        送出
+      </button>
+    </main>
   </div>
 </template>
+
+<script setup>
+import choice from '../components/Choice.vue'
+import SingleChoice from '../components/SingleChoice.vue'
+import { ref, onMounted } from 'vue'
+import { GetAllUser, createGameRecord } from '../api/springApi'
+
+const AllUser = ref([])
+const RedPeople = ref([])
+const BluePeople = ref([])
+const GreenPeople = ref([])
+const WinG = ref('')
+const WinGroup = x => {
+  WinG.value = x.name
+}
+
+onMounted(async () => {
+  AllUser.value = await GetAllUser()
+})
+
+const Win = [
+  { id: 1, name: 'Red' },
+  { id: 2, name: 'Blue' },
+  { id: 3, name: 'Green' }
+]
+
+const red = value => {
+  RedPeople.value = value.map(item => item.username)
+}
+const blue = value => {
+  BluePeople.value = value.map(item => item.username)
+}
+const green = value => {
+  GreenPeople.value = value.map(item => item.username)
+}
+
+const SendRecord = async () => {
+  const res = await createGameRecord({
+    winner: WinG.value,
+    red: RedPeople.value,
+    blue: BluePeople.value,
+    green: GreenPeople.value
+  })
+}
+</script>

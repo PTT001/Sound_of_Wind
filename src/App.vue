@@ -1,8 +1,7 @@
 <script setup>
 import NavBar from './components/NavBar2.vue'
 import store from './store'
-import { GetProfile, GetCharacterInfo } from './api/springApi'
-import { getCharacterInfo } from './api/api'
+import { GetProfile, getCharacterInfo } from './api/springApi'
 import { onMounted } from 'vue'
 
 const useStore = store()

@@ -40,7 +40,7 @@
                   item.current
                     ? 'bg-indigo-700 text-white'
                     : 'text-gray-200 hover:bg-indigo-600 hover:text-white',
-                  'rounded-lg px-4 py-2 text-sm font-semibold tracking-wide transition duration-300 ease-in-out transform hover:scale-105',
+                  'rounded-lg px-4 py-2 text-sm font-semibold tracking-wide transition duration-300 ease-in-out transform hover:scale-105'
                 ]"
                 :aria-current="item.current ? 'page' : undefined"
                 >{{ item.name }}</a
@@ -88,7 +88,7 @@
                       @click="navigateTo('/profile')"
                       :class="[
                         active ? 'bg-indigo-700 text-white' : 'text-gray-200',
-                        'block px-4 py-2 text-sm font-semibold rounded-t-lg transition duration-200 ease-in-out',
+                        'block px-4 py-2 text-sm font-semibold rounded-t-lg transition duration-200 ease-in-out'
                       ]"
                       >編輯資訊</a
                     >
@@ -99,7 +99,7 @@
                       @click="logout"
                       :class="[
                         active ? 'bg-indigo-700 text-white' : 'text-gray-200',
-                        'block px-4 py-2 text-sm font-semibold rounded-b-lg transition duration-200 ease-in-out',
+                        'block px-4 py-2 text-sm font-semibold rounded-b-lg transition duration-200 ease-in-out'
                       ]"
                       >登出</a
                     >
@@ -131,7 +131,7 @@
             item.current
               ? 'bg-indigo-700 text-white'
               : 'text-gray-200 hover:bg-indigo-600 hover:text-white',
-            'block rounded-lg px-4 py-3 text-base font-semibold tracking-wide transition duration-300 ease-in-out transform hover:scale-105',
+            'block rounded-lg px-4 py-3 text-base font-semibold tracking-wide transition duration-300 ease-in-out transform hover:scale-105'
           ]"
           :aria-current="item.current ? 'page' : undefined"
           >{{ item.name }}</DisclosureButton
@@ -142,33 +142,33 @@
 </template>
 
 <script setup>
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
-import router from '../router';
-import store from '../store';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import router from '../router'
+import store from '../store'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
-const useStore = store();
+const useStore = store()
 
 const navigation = [
   { name: '首頁', href: '/Home', current: false },
-  { name: '戰績輸入', href: '/LoginRecord', current: false },
-  { name: '歷史戰績', href: '/Record', current: false },
-  { name: '留言板', href: '/msgboard', current: false },
-];
+  { name: '戰績輸入', href: '/Record', current: false },
+  { name: '歷史戰績', href: '/History', current: false },
+  { name: '留言板', href: '/msgboard', current: false }
+]
 
-const navigateTo = (path) => {
-  router.push(path);
-};
+const navigateTo = path => {
+  router.push(path)
+}
 
 const logout = () => {
-  localStorage.removeItem('rayToken');
-  useStore.profile = '';
-  toast.success('已登出');
+  localStorage.removeItem('rayToken')
+  useStore.profile = ''
+  toast.success('已登出')
   setTimeout(() => {
-    router.push(`/authpage`);
-  }, 1000);
-};
+    router.push(`/authpage`)
+  }, 1000)
+}
 </script>
