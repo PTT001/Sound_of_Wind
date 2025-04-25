@@ -81,7 +81,7 @@
                 leave-to-class="transform opacity-0 scale-95"
               >
                 <MenuItems
-                  class="absolute right-0 mt-2 w-48 origin-top-right rounded-lg bg-indigo-800/90 backdrop-blur-md shadow-lg ring-1 ring-indigo-400 ring-opacity-50 focus:outline-none"
+                  class="z-[5] absolute right-0 mt-2 w-48 origin-top-right rounded-lg bg-indigo-800/90 backdrop-blur-md shadow-lg ring-1 ring-indigo-400 ring-opacity-50 focus:outline-none"
                 >
                   <MenuItem v-slot="{ active }">
                     <a

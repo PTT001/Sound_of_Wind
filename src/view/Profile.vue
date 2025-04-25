@@ -52,7 +52,7 @@
 <script setup>
 import { ref } from 'vue'
 import store from '../store'
-import { uploadAvatar } from '../api/springApi'
+import { uploadAvatar, changePassword } from '../api/springApi'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import router from '../router'
@@ -88,13 +88,19 @@ const triggerFileUpload = () => {
 }
 
 // 修改密碼的函數
-const updatePassword = () => {
+const updatePassword = async () => {
   if (password.value) {
     // 這裡可以加入後端 API 調用邏輯
-    alert(`密碼已更新為: ${password.value}`)
+    await changePassword({ password: password.value })
+    toast.success(`密碼已更新`)
+    setTimeout(() => {
+      localStorage.removeItem('rayToken')
+      router.push(`authpage`)
+      window.location.reload()
+    }, 1500)
     password.value = '' // 清空密碼欄位
   } else {
-    alert('請輸入新密碼')
+    toast.error('請輸入新密碼')
   }
 }
 </script>

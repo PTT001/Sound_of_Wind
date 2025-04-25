@@ -11,7 +11,10 @@
         >
           <div class="flex items-start">
             <img
-              src="https://cdn.jsdelivr.net/gh/Ling137/imgbed@main/data/unlimitedTiling.png"
+              :src="
+                item.avatarUrl ||
+                'https://cdn.jsdelivr.net/gh/Ling137/imgbed@main/data/unlimitedTiling.png'
+              "
               alt="User avatar"
               class="w-12 h-12 rounded-full mr-4 border border-gray-200"
             />

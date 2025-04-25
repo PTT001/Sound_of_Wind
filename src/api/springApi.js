@@ -22,7 +22,16 @@ export const Login = async Profile => {
 
 export const GetProfile = async () => {
   try {
-    const res = await api.get('/getProfile')
+    const res = await api.get('/Profile')
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const changePassword = async newpassword => {
+  try {
+    const res = await api.post('/Profile', newpassword)
     return res.data
   } catch (error) {
     throw error

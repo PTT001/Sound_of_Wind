@@ -119,7 +119,7 @@ const handleSubmit = async () => {
       useStore.profile = Profile
 
       setTimeout(() => {
-        router.replace(`/Home`)
+        router.push(`/Home`)
       }, 1000)
     } catch (error) {
       toast.error(`帳號密碼錯誤`, {
