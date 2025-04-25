@@ -28,7 +28,7 @@
                       month: 'long',
                       day: 'numeric',
                       hour: '2-digit',
-                      minute: '2-digit'
+                      minute: '2-digit',
                     })
                   }}
                 </span>
@@ -87,30 +87,30 @@
 </template>
 
 <script setup>
-import { createMessage, getAllMessage } from '../api/springApi'
-import { ref, onMounted } from 'vue'
-import store from '../store'
-import loading from '../components/loading.vue'
+import { createMessage, getAllMessage } from '../api/springApi';
+import { ref, onMounted } from 'vue';
+import store from '../store';
+import loading from '../components/loading.vue';
 
-const isLoading = ref(true)
-const messageList = ref([])
+const isLoading = ref(true);
+const messageList = ref([]);
 
 onMounted(async () => {
-  messageList.value = await getAllMessage()
-  isLoading.value = false
-})
+  messageList.value = await getAllMessage();
+  isLoading.value = false;
+});
 
-const useStore = store()
-const userinput = ref('')
+const useStore = store();
+const userinput = ref('');
 
 const Create_Message = async () => {
   if (userinput.value !== '') {
     await createMessage({
       username: useStore.profile.username,
-      message: userinput.value
-    })
+      message: userinput.value,
+    });
 
-    window.location.reload()
+    window.location.reload();
   }
-}
+};
 </script>
