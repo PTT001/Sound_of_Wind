@@ -7,9 +7,18 @@
       <div class="flex justify-center mb-6 relative">
         <img
           :src="userStore.profile.avatarUrl"
-          alt="新增頭貼"
+          alt=""
           class="w-24 h-24 rounded-full object-cover border-2 border-blue-200 cursor-pointer"
         />
+
+        <!-- 加號疊層 -->
+        <div
+          v-if="!userStore.profile.avatarUrl"
+          class="absolute w-24 h-24 flex items-center justify-center bg-black bg-opacity-50 rounded-full cursor-pointer"
+          @click="triggerFileUpload"
+        >
+          <span class="text-white text-3xl">+</span>
+        </div>
         <!-- 加號疊層 -->
         <div
           class="absolute w-24 h-24 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
