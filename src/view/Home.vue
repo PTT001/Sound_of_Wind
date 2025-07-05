@@ -24,6 +24,15 @@ const initAccordion = async () => {
   initTWE({ Collapse, Ripple, Modal, Input });
 };
 
+// Function to refresh the gamers list
+const refreshGamersList = async () => {
+  isLoading.value = true;
+  const userData = await GetGamers();
+  userlist.value = userData;
+  await initAccordion();
+  isLoading.value = false;
+};
+
 // 直接使用 store 的 CharacterInfo，避免靜態賦值
 const CharacterInfo = computed(() => useStore.CharacterInfo);
 
@@ -192,20 +201,31 @@ watch(
       </div>
     </div>
 
-    <!-- Button trigger modal -->
+    <!-- Button container for 登記 and 刷新 buttons -->
+    <div class="mt-7 flex space-x-4">
+      <!-- 登記 button -->
+      <button
+        type="button"
+        class="inline-block rounded bg-info-800 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+        data-twe-toggle="modal"
+        data-twe-target="#exampleModalFullscreen"
+        data-twe-ripple-init
+        data-twe-ripple-color="light"
+      >
+        登記
+      </button>
 
-    <button
-      type="button"
-      class="mt-7 inline-block rounded bg-info-800 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-      data-twe-toggle="modal"
-      data-twe-target="#exampleModalFullscreen"
-      data-twe-ripple-init
-      data-twe-ripple-color="light"
-    >
-      登記
-    </button>
-
-    <!-- <modal /> -->
+      <!-- 刷新 button -->
+      <button
+        type="button"
+        class="inline-block rounded bg-gray-600 px-6 pb-2 pt-2.5 text-md font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-gray-700 hover:shadow-primary-2 focus:bg-gray-700 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+        @click="refreshGamersList"
+        data-twe-ripple-init
+        data-twe-ripple-color="light"
+      >
+        刷新
+      </button>
+    </div>
 
     <!-- Modal -->
     <div
