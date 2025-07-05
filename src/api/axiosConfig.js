@@ -19,8 +19,8 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
   response => response,
   error => {
-    if (error.response) {
-      // Token 過期或錯誤，引導回登入頁
+    if (status === 401 || status === 403) {
+      // Token 過期或未授權才導回登入頁
       router.push('/authpage')
     }
     return Promise.reject(error)
