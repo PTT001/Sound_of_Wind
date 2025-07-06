@@ -14,19 +14,19 @@ onMounted(async () => {
 
 const shouldShowRedIcon = computed(() => {
   return item => {
-    return item.winner === 'Red'
+    return item.winner === 'red'
   }
 })
 
 const shouldShowBlueIcon = computed(() => {
   return item => {
-    return item.winner === 'Blue'
+    return item.winner === 'blue'
   }
 })
 
 const shouldShowGreenIcon = computed(() => {
   return item => {
-    return item.winner === 'Green'
+    return item.winner === 'green'
   }
 })
 </script>
