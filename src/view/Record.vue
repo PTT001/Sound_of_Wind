@@ -99,9 +99,9 @@ onMounted(async () => {
 })
 
 const Win = [
-  { id: 1, name: 'Red' },
-  { id: 2, name: 'Blue' },
-  { id: 3, name: 'Green' }
+  { id: 1, name: 'red' },
+  { id: 2, name: 'blue' },
+  { id: 3, name: 'green' }
 ]
 
 const red = value => {
