@@ -108,7 +108,7 @@ const Create_Message = async () => {
     await createMessage({
       username: useStore.profile.username,
       message: userinput.value,
-      avatar_url: useStore.profile.avatar_url,
+      avatar_url: useStore.profile.avatar_url
     });
 
     window.location.reload();
